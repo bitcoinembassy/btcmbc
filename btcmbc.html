@@ -1,0 +1,17 @@
+<head>
+  <title>btcmbc</title>
+  <!-- Open Sans -->
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700">
+</head>
+
+<body>
+  <div class="container-fluid">
+    {{> hello}}
+  </div>
+</body>
+
+<template name="hello">
+  <div style="margin-top: 20px; background-color: white;">
+    <h1 class="text-center"><strong>${{rate}}</strong></h1>
+  </div>
+</template>
