@@ -10,3 +10,6 @@ insecure
 twbs:bootstrap
 http
 jquery
+iron:router
+accounts-ui
+accounts-password

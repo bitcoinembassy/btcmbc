@@ -8,7 +8,7 @@ var bitpay = function(resp) {
     difference = bitpay_rate - real_rate;
     console.log(cad + " CAD | " + usd + " USD | " + bitpay_rate + " | " + real_rate + " | " + difference);
   });
-  btcmbc = cad * 1.05;
+  btcmbc = cad * 1.04;
   Session.set('rate', btcmbc.toFixed(2));
 }
 
@@ -25,11 +25,11 @@ Meteor.setInterval(function() {
 }, 60000);
 
 
-Template.hello.helpers({
+Template.ticker.helpers({
   rate: function () {
     return Session.get("rate");
   }
 });
-Template.hello.rendered = function() {
+Template.ticker.rendered = function() {
   $('h1').fitText();
 };
