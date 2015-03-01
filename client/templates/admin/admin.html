@@ -2,6 +2,61 @@
   <h1>Admin area</h1>
   {{> loginButtons}}
   {{#if currentUser}}
-    <p>yo</p>
+    <h3>Settings</h3>
+    {{#with ticker}}
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form class="edit-percentage-fee">
+            <div class="form-group">
+              <label for="percentage-fee">Percentage fee</label>
+              <input type="number" step="0.1" class="form-control" name="percentageFee" value="{{percentageFee}}">
+            </div>
+            <button type="submit" class="btn btn-default">Save</button>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">Ticker info</div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Currencies</th>
+              <th>Source</th>
+              <th>Exchange Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">BTC / CAD</th>
+              <td>Bitcoin Embassy</td>
+              <td>{{btcmbcExchangeRate}}</td>
+            </tr>
+            <tr>
+              <th scope="row">BTC / CAD</th>
+              <td>BitPay</td>
+              <td>{{cadExchangeRate}}</td>
+            </tr>
+            <tr>
+              <th scope="row">BTC / USD</th>
+              <td>BitPay</td>
+              <td>{{usdExchangeRate}}</td>
+            </tr>
+            <tr>
+              <th scope="row">USD / CAD</th>
+              <td>BitPay</td>
+              <td>{{bitpayUSDCAD}}</td>
+            </tr>
+            <tr>
+              <th scope="row">USD / CAD</th>
+              <td>Open Exchange Rates</td>
+              <td>{{openexchangeratesUSDCAD}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="panel-body">
+          <span>The difference between BitPay and Open Exchange Rates is {{ticker.difference}}.</span>
+        </div>
+      </div>
+    {{/with}}
   {{/if}}
 </template>
