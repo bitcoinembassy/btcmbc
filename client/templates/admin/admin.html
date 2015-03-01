@@ -1,7 +1,7 @@
 <template name="admin">
   <h1>Admin area</h1>
   {{> loginButtons}}
-  {{#if currentUser}}
+  {{#if admin}}
     <h3>Settings</h3>
     {{#with ticker}}
       <div class="panel panel-default">
@@ -58,5 +58,12 @@
         </div>
       </div>
     {{/with}}
+  {{else}}
+    {{#if currentUser}}
+      <p>
+        You need to verify your email address (click on the link in the email
+        you received from no-reply@meteor.com).
+      </p>
+    {{/if}}
   {{/if}}
 </template>

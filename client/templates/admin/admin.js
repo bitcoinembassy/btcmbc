@@ -1,6 +1,13 @@
 Template.admin.helpers({
   ticker: function() {
     return Tickers.findOne();
+  },
+  admin: function() {
+    if (Meteor.userId() && Meteor.user().emails[0].verified) {
+      return true;
+    } else {
+      return false;
+    }
   }
 });
 
