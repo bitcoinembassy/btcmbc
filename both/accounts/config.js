@@ -1,4 +1,4 @@
 Accounts.config({
   sendVerificationEmail: true,
-  restrictCreationByEmailDomain: 'bitcoinembassy.ca'
+  restrictCreationByEmailDomain: 'pkoi.com'
 });
