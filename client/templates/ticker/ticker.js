@@ -3,7 +3,7 @@ Template.ticker.helpers({
     return Prices.findOne({}, {sort: {createdAt: -1}}).btcmbcCAD.toFixed(2);
   },
   currentTime: function() {
-    return moment(Session.get('time') || new Date()).format("h:m A");
+    return moment(Session.get('time') || new Date()).format("h:mm A");
   }
 });
 
