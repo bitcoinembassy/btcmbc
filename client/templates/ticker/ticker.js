@@ -7,3 +7,9 @@ Template.ticker.helpers({
 Template.ticker.rendered = function() {
   $('h1').fitText();
 };
+
+Template.ticker.events({
+  "click h1": function (event) {
+    Router.go('/admin');
+  }
+});
