@@ -14,3 +14,7 @@ Template.admin.events({
     return false;
   }
 });
+
+Template.registerHelper('formatPrice', function(price) {
+  return accounting.formatMoney(price);
+});

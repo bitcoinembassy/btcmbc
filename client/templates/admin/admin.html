@@ -50,11 +50,11 @@
         <tbody>
           {{#each prices}}
           <tr>
-            <th>{{btcmbcCAD}} CAD</th>
+            <th>{{formatPrice btcmbcCAD}} CAD</th>
             <td>{{brokerageFee}} %</td>
-            <td>{{bitpayCAD}} CAD</td>
-            <td>{{bitpayUSD}} USD</td>
-            <td>{{bitpayUSD_CAD}} CAD</td>
+            <td>{{formatPrice bitpayCAD}} CAD</td>
+            <td>{{formatPrice bitpayUSD}} USD</td>
+            <td>{{formatPrice bitpayUSD_CAD}} CAD</td>
             <td>{{livestamp createdAt}}</td>
           </tr>
           {{/each}}
