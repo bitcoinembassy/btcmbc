@@ -1,9 +1,9 @@
 Template.admin.helpers({
-  ticker: function() {
-    return Tickers.findOne();
+  prices: function() {
+    return Prices.find({}, {sort: {createdAt: -1}, limit: 100});
   },
   admin: function() {
-    if (Meteor.userId() && Meteor.user().emails[0].verified) {
+    if (Meteor.user().emails[0].verified) {
       return true;
     } else {
       return false;
@@ -12,13 +12,9 @@ Template.admin.helpers({
 });
 
 Template.admin.events({
-  "submit .edit-percentage-fee": function (event) {
-    var percentageFee = event.target.percentageFee.value;
-
-    if (Tickers.find().count() === 1) {
-      Meteor.call("editPercentageFee", percentageFee);
-    }
-
+  "submit .editBrokerageFee": function (event) {
+    var brokerageFee = event.target.brokerageFee.value;
+    Meteor.call("editBrokerageFee", brokerageFee);
     return false;
   }
 });

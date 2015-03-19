@@ -12,3 +12,6 @@ jquery
 iron:router
 accounts-ui
 accounts-password
+msavin:mongol
+zimme:collection-timestampable
+copleykj:livestamp

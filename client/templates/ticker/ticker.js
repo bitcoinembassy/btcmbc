@@ -1,6 +1,6 @@
 Template.ticker.helpers({
   ticker: function () {
-    return Tickers.findOne();
+    return Prices.findOne({}, {sort: {createdAt: -1}});
   }
 });
 
