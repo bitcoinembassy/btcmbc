@@ -4,10 +4,6 @@ Meteor.methods({
       throw new Meteor.Error("not-authorized");
     }
 
-    if (! Meteor.user().emails[0].verified) {
-      throw new Meteor.Error("not-verified");
-    }
-
     var latestPrice = Prices.findOne({}, {sort: {createdAt: -1}});
 
     Prices.update(latestPrice._id, {$set: {brokerageFee: brokerageFee}});
