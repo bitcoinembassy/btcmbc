@@ -40,10 +40,10 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Bitcoin Embassy (CAD)</th>
-              <th>Brokerage Fee (%)</th>
-              <th>BitPay (CAD)</th>
-              <th>BitPay (USD)</th>
+              <th>Bitcoin Embassy (BTC / CAD)</th>
+              <th>Brokerage Fee</th>
+              <th>BitPay (BTC / CAD)</th>
+              <th>BitPay (BTC / USD)</th>
               <th>BitPay (USD / CAD)</th>
               <th>Time</th>
             </tr>
@@ -51,11 +51,11 @@
           <tbody>
             {{#each prices}}
             <tr>
-              <th>{{btcmbcCAD}}</th>
-              <td>{{brokerageFee}}</td>
-              <td>{{bitpayCAD}}</td>
-              <td>{{bitpayUSD}}</td>
-              <td>{{bitpayUSD_CAD}}</td>
+              <th>{{btcmbcCAD}} CAD</th>
+              <td>{{brokerageFee}} %</td>
+              <td>{{bitpayCAD}} CAD</td>
+              <td>{{bitpayUSD}} USD</td>
+              <td>{{bitpayUSD_CAD}} CAD</td>
               <td>{{livestamp createdAt}}</td>
             </tr>
             {{/each}}

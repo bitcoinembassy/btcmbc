@@ -4,7 +4,7 @@ Meteor.startup(function () {
       var bitpay = JSON.parse(resp.content);
       var bitpayCAD = bitpay[5]['rate'];
       var brokerageFee = Prices.findOne({}, {sort: {createdAt: -1}}).brokerageFee;
-      var btcmbcCAD = (bitpayCAD * (1 + (brokerageFee / 100))).toFixed(2);
+      var btcmbcCAD = (bitpayCAD * (1 + (brokerageFee / 100)));
       var bitpayUSD = bitpay[1]['rate'];
       var bitpayUSD_CAD = bitpayCAD / bitpayUSD;
 
@@ -23,7 +23,7 @@ Meteor.startup(function () {
       var bitpay = JSON.parse(resp.content);
       var bitpayCAD = bitpay[5]['rate'];
       var brokerageFee = 5;
-      var btcmbcCAD = (bitpayCAD * (1 + (brokerageFee / 100))).toFixed(2);
+      var btcmbcCAD = (bitpayCAD * (1 + (brokerageFee / 100)));
       var bitpayUSD = bitpay[1]['rate'];
       var bitpayUSD_CAD = bitpayCAD / bitpayUSD;
 

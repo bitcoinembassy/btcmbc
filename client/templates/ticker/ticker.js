@@ -1,6 +1,6 @@
 Template.ticker.helpers({
-  ticker: function () {
-    return Prices.findOne({}, {sort: {createdAt: -1}});
+  price: function () {
+    return Prices.findOne({}, {sort: {createdAt: -1}}).btcmbcCAD.toFixed(2);
   }
 });
 

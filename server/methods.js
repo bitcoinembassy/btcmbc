@@ -12,7 +12,7 @@ Meteor.methods({
 
     Prices.update(latestPrice._id, {$set: {brokerageFee: brokerageFee}});
 
-    var btcmbcCAD = (latestPrice.bitpayCAD * (1 + (brokerageFee / 100))).toFixed(2);
+    var btcmbcCAD = (latestPrice.bitpayCAD * (1 + (brokerageFee / 100)));
 
     Prices.update(latestPrice._id, {$set: {btcmbcCAD: btcmbcCAD}});
   }
