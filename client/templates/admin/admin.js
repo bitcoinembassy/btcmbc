@@ -1,4 +1,7 @@
 Template.admin.helpers({
+  latestprice: function() {
+    return Prices.findOne({}, {sort: {createdAt: -1}});
+  },
   prices: function() {
     return Prices.find({}, {sort: {createdAt: -1}, limit: 100});
   },
