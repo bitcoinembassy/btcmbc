@@ -3,12 +3,12 @@ Template.ticker.helpers({
     return Prices.findOne({}, {sort: {createdAt: -1}}).btcmbcCAD.toFixed(2);
   },
   currentTime: function() {
-    return moment(Session.get('time') || new Date()).format("h:mm A");
+    return moment(Session.get('time') || new Date()).format("dddd, MMMM Do, h:mm A");
   }
 });
 
 Template.ticker.rendered = function() {
-  $('h1').fitText();
+  $('h1').fitText(0.5);
 };
 
 Template.ticker.events({
