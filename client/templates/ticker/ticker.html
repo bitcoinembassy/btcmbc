@@ -1,6 +1,27 @@
 <template name="ticker">
   <div style="margin-top: 20px; background-color: white;">
-    <h1 class="text-center"><strong>${{price}}</strong></h1>
-    <h2 class="text-center">{{currentTime}}</h2>
+    <h1 class="text-center"><strong>{{formatPrice price.btcmbcCAD}}</strong></h1>
+    <div class="row">
+      <div class="col-lg-3 col-lg-offset-3">
+        <div class="input-group input-group-lg">
+          <input type="number" class="form-control" step="0.01" id="fiat" value="100">
+          <span class="input-group-addon">CAD</span>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="input-group input-group-lg" style="margin-bottom: 10px">
+          <input type="number" class="form-control" id="btc" value="{{btcQuantity}}">
+          <span class="input-group-addon">BTC</span>
+        </div>
+      </div>
+    </div>
   </div>
+  <nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!--<a class="navbar-brand" href="#">Brand</a>-->
+      </div>
+      <p class="navbar-text" id="current-time">{{currentTime}}</p>
+    </div>
+  </nav>
 </template>

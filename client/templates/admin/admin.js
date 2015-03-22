@@ -18,3 +18,7 @@ Template.admin.events({
 Template.registerHelper('formatPrice', function(price) {
   return accounting.formatMoney(price);
 });
+
+Template.registerHelper('formatNumber', function(price) {
+  return accounting.toFixed(price, 2);
+});

@@ -5,7 +5,6 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
 twbs:bootstrap
 http
 jquery
@@ -17,4 +16,4 @@ copleykj:livestamp
 ian:accounts-ui-bootstrap-3
 lepozepo:accounting
 momentjs:moment
-frabrunelle:fittext
+frabrunelle:fittext@1.2.0_2
