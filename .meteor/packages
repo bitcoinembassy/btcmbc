@@ -5,7 +5,6 @@
 # but you can also edit it by hand.
 
 meteor-platform
-twbs:bootstrap
 http
 jquery
 iron:router
@@ -17,3 +16,5 @@ ian:accounts-ui-bootstrap-3
 lepozepo:accounting
 momentjs:moment
 frabrunelle:fittext@1.2.0_2
+nemo64:bootstrap
+less

@@ -17,12 +17,20 @@ Template.ticker.helpers({
 });
 
 Template.ticker.onRendered(function() {
-  $('h1').fitText(0.6);
+  $('#price').fitText(0.75);
 });
 
 Template.ticker.events({
-  "click #current-time": function (event) {
-    Router.go('/admin');
+  "click #buy": function (event) {
+    var latestPrice = Prices.findOne({}, {sort: {createdAt: -1}});
+    $('#price').text(latestPrice.btcmbcCAD);
+    $('#buy').toggleClass('btn-default btn-primary').addClass('disabled');
+    $('#sell').toggleClass('btn-primary btn-default').removeClass('disabled');
+  },
+  "click #sell": function (event) {
+    $('#price').text('sellprice');
+    $('#sell').toggleClass('btn-default btn-primary').addClass('disabled');
+    $('#buy').toggleClass('btn-primary btn-default').removeClass('disabled');
   },
   "input #fiat": function (event) {
     var latestPrice = Prices.findOne({}, {sort: {createdAt: -1}});
@@ -33,6 +41,9 @@ Template.ticker.events({
     var latestPrice = Prices.findOne({}, {sort: {createdAt: -1}});
     var fiatQuantity = event.target.value * latestPrice.btcmbcCAD;
     $('#fiat').val(accounting.toFixed(fiatQuantity, 2));
+  },
+  "click #current-time": function (event) {
+    Router.go('/admin');
   }
 });
 
