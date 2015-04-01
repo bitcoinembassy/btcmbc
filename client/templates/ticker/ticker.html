@@ -1,17 +1,12 @@
 <template name="ticker">
-  <div class="row">
-    <div class="col-lg-6 col-lg-offset-3">
-      <div class="btn-group btn-group-justified btn-group-lg" role="group" style="margin-top: 10px">
-        <a href="#" class="btn btn-primary disabled" role="button" id="buy">Buy</a>
-        <a href="#" class="btn btn-default" role="button" id="sell">Sell</a>
-      </div>
-    </div>
-  </div>
-  <h1 class="text-center" style="font-weight: bold" id="price">{{formatPrice price.btcmbcCAD}}</h1>
+  <h1 class="text-center page-header" style="margin-top: 0">
+    Buy bitcoins
+  </h1>
+  <h2 class="text-center" id="price" style="margin-bottom: 20px">{{formatPrice price.btcmbcCAD}}</h2>
   <div class="row">
     <div class="col-lg-3 col-lg-offset-3">
-      <div class="input-group input-group-lg" style="margin-bottom: 10px">
-        <input type="number" class="form-control" step="0.01" id="fiat" value="100">
+      <div class="input-group input-group-lg" style="margin-bottom: 20px">
+        <input type="number" class="form-control" step="0.01" id="fiat" value="{{fiatQuantity}}">
         <span class="input-group-addon">CAD</span>
       </div>
     </div>
@@ -27,7 +22,7 @@
       <div class="navbar-header">
         <!--<a class="navbar-brand" href="#">Brand</a>-->
       </div>
-      <p class="navbar-text" id="current-time">{{currentTime}}</p>
+      <p class="navbar-text">{{currentTime}}</p>
     </div>
   </nav>
 </template>

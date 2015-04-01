@@ -1,13 +1,27 @@
-Meteor.subscribe("prices");
+Session.setDefault("fiatQuantity", 100);
+Session.setDefault("btcQuantity", 0);
 
 Template.ticker.helpers({
   price: function() {
     return Prices.findOne({}, {sort: {createdAt: -1}});
   },
+  fiatQuantity: function() {
+    return accounting.toFixed(Session.get("fiatQuantity"), 2);
+  },
   btcQuantity: function() {
-    var latestPrice = Prices.findOne({}, {sort: {createdAt: -1}});
-    if (latestPrice) {
-      var btcQuantity = 100 / latestPrice.btcmbcCAD;
+    var btcQuantity = Session.get("btcQuantity");
+    if (btcQuantity) {
+      return accounting.toFixed(btcQuantity, 4);
+    } else {
+      var price = Prices.findOne({}, {sort: {createdAt: -1}});
+      if (price) {
+        if (Meteor.userId()) {
+          var flatFee = Meteor.user().profile.flatFee;
+          btcQuantity = (100 - flatFee) / price.btcmbcCAD;
+        } else {
+          btcQuantity = 100 / price.btcmbcCAD;
+        }
+      }
       return accounting.toFixed(btcQuantity, 4);
     }
   },
@@ -21,29 +35,23 @@ Template.ticker.onRendered(function() {
 });
 
 Template.ticker.events({
-  "click #buy": function (event) {
-    var latestPrice = Prices.findOne({}, {sort: {createdAt: -1}});
-    $('#price').text(latestPrice.btcmbcCAD);
-    $('#buy').toggleClass('btn-default btn-primary').addClass('disabled');
-    $('#sell').toggleClass('btn-primary btn-default').removeClass('disabled');
-  },
-  "click #sell": function (event) {
-    $('#price').text('sellprice');
-    $('#sell').toggleClass('btn-default btn-primary').addClass('disabled');
-    $('#buy').toggleClass('btn-primary btn-default').removeClass('disabled');
-  },
   "input #fiat": function (event) {
-    var latestPrice = Prices.findOne({}, {sort: {createdAt: -1}});
-    var btcQuantity = event.target.value / latestPrice.btcmbcCAD;
-    $('#btc').val(accounting.toFixed(btcQuantity, 4));
+    var price = Prices.findOne({}, {sort: {createdAt: -1}});
+    if (Meteor.userId()) {
+      var flatFee = Meteor.user().profile.flatFee;
+      Session.set("btcQuantity", (event.target.value - flatFee) / price.btcmbcCAD);
+    } else {
+      Session.set("btcQuantity", event.target.value / price.btcmbcCAD);
+    }
   },
   "input #btc": function (event) {
-    var latestPrice = Prices.findOne({}, {sort: {createdAt: -1}});
-    var fiatQuantity = event.target.value * latestPrice.btcmbcCAD;
-    $('#fiat').val(accounting.toFixed(fiatQuantity, 2));
-  },
-  "click #current-time": function (event) {
-    Router.go('/admin');
+    var price = Prices.findOne({}, {sort: {createdAt: -1}});
+    if (Meteor.userId()) {
+      var flatFee = Meteor.user().profile.flatFee;
+      Session.set("fiatQuantity", (event.target.value * price.btcmbcCAD) + flatFee);
+    } else {
+      Session.set("fiatQuantity", event.target.value * price.btcmbcCAD);
+    }
   }
 });
 

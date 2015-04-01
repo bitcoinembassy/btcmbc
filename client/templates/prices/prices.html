@@ -1,0 +1,29 @@
+<template name="prices">
+  <h1 class="text-center page-header" style="margin-top: 0">Prices</h1>
+  {{#if currentUser}}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>BTCMBC (BTC / CAD)</th>
+          <th>Percentage Fee</th>
+          <th>BitPay (BTC / CAD)</th>
+          <th>BitPay (BTC / USD)</th>
+          <th>BitPay (USD / CAD)</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each prices}}
+        <tr>
+          <td>{{formatPrice btcmbcCAD}} CAD</td>
+          <td>{{percentageFee}} %</td>
+          <td>{{formatPrice bitpayCAD}} CAD</td>
+          <td>{{formatPrice bitpayUSD}} USD</td>
+          <td>{{formatUSDCAD bitpayUSD_CAD}} CAD</td>
+          <td>{{livestamp createdAt}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{/if}}
+</template>

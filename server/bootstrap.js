@@ -3,14 +3,14 @@ Meteor.startup(function () {
     HTTP.get("https://bitpay.com/api/rates", function(err, resp) {
       var bitpay = JSON.parse(resp.content);
       var bitpayCAD = bitpay[5]['rate'];
-      var brokerageFee = Prices.findOne({}, {sort: {createdAt: -1}}).brokerageFee;
-      var btcmbcCAD = (bitpayCAD * (1 + (brokerageFee / 100)));
+      var percentageFee = Prices.findOne({}, {sort: {createdAt: -1}}).percentageFee;
+      var btcmbcCAD = (bitpayCAD * (1 + (percentageFee / 100)));
       var bitpayUSD = bitpay[1]['rate'];
       var bitpayUSD_CAD = bitpayCAD / bitpayUSD;
 
       Prices.insert({
         bitpayCAD: bitpayCAD,
-        brokerageFee: brokerageFee,
+        percentageFee: percentageFee,
         btcmbcCAD: btcmbcCAD,
         bitpayUSD: bitpayUSD,
         bitpayUSD_CAD: bitpayUSD_CAD
@@ -22,14 +22,14 @@ Meteor.startup(function () {
     HTTP.get("https://bitpay.com/api/rates", function(err, resp) {
       var bitpay = JSON.parse(resp.content);
       var bitpayCAD = bitpay[5]['rate'];
-      var brokerageFee = 5;
-      var btcmbcCAD = (bitpayCAD * (1 + (brokerageFee / 100)));
+      var percentageFee = 5;
+      var btcmbcCAD = (bitpayCAD * (1 + (percentageFee / 100)));
       var bitpayUSD = bitpay[1]['rate'];
       var bitpayUSD_CAD = bitpayCAD / bitpayUSD;
 
       Prices.insert({
         bitpayCAD: bitpayCAD,
-        brokerageFee: brokerageFee,
+        percentageFee: percentageFee,
         btcmbcCAD: btcmbcCAD,
         bitpayUSD: bitpayUSD,
         bitpayUSD_CAD: bitpayUSD_CAD

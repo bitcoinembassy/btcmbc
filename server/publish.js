@@ -1,3 +1,3 @@
 Meteor.publish("prices", function () {
-  return Prices.find({}, {sort: {createdAt: -1}, limit: 100});
+  return Prices.find({}, {sort: {createdAt: -1}, limit: 60});
 });

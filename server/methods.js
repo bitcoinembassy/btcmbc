@@ -1,15 +1,13 @@
 Meteor.methods({
-  editBrokerageFee: function (brokerageFee) {
+  editPercentageFee: function (percentageFee, price) {
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
 
-    var latestPrice = Prices.findOne({}, {sort: {createdAt: -1}});
+    Prices.update(price._id, {$set: {percentageFee: percentageFee}});
 
-    Prices.update(latestPrice._id, {$set: {brokerageFee: brokerageFee}});
+    var btcmbcCAD = (price.bitpayCAD * (1 + (percentageFee / 100)));
 
-    var btcmbcCAD = (latestPrice.bitpayCAD * (1 + (brokerageFee / 100)));
-
-    Prices.update(latestPrice._id, {$set: {btcmbcCAD: btcmbcCAD}});
+    Prices.update(price._id, {$set: {btcmbcCAD: btcmbcCAD}});
   }
 });

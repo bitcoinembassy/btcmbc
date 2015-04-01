@@ -6,6 +6,6 @@ Router.route('/', {
   name: 'ticker'
 });
 
-Router.route('/sell');
+Router.route('/settings');
 
-Router.route('/admin');
+Router.route('/prices');
