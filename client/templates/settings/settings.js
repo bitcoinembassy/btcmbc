@@ -20,7 +20,7 @@ Template.settings.events({
   },
   "click #buy": function (event) {
     var latestPrice = Prices.findOne({}, {sort: {createdAt: -1}});
-    $('#price').text(latestPrice.btcmbcCAD);
+    $('#price').text('buyprice');
     $('#buy').toggleClass('btn-default btn-primary').addClass('disabled');
     $('#sell').toggleClass('btn-primary btn-default').removeClass('disabled');
   },

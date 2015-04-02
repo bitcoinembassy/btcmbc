@@ -1,6 +1,8 @@
 Session.setDefault("fiatQuantity", 100);
 Session.setDefault("btcQuantity", 0);
 
+Meteor.subscribe("messages");
+
 Template.ticker.helpers({
   price: function() {
     return Prices.findOne({}, {sort: {createdAt: -1}});
@@ -24,6 +26,12 @@ Template.ticker.helpers({
       }
       return accounting.toFixed(btcQuantity, 4);
     }
+  },
+  message: function() {
+    return Messages.findOne();
+  },
+  messages: function() {
+    return Messages.find();
   },
   currentTime: function() {
     return moment(Session.get('time') || new Date()).format("dddd, MMMM Do, h:mm A");

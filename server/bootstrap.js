@@ -1,4 +1,10 @@
 Meteor.startup(function () {
+  if (Messages.find().count() === 0) {
+    Messages.insert({
+      body: 'Click here to edit this message.'
+    });
+  }
+
   Meteor.setInterval(function() {
     HTTP.get("https://bitpay.com/api/rates", function(err, resp) {
       var bitpay = JSON.parse(resp.content);
