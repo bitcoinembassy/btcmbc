@@ -30,10 +30,6 @@ Template.ticker.helpers({
   }
 });
 
-Template.ticker.onRendered(function() {
-  $('#price').fitText(0.75);
-});
-
 Template.ticker.events({
   "input #fiat": function (event) {
     var price = Prices.findOne({}, {sort: {createdAt: -1}});

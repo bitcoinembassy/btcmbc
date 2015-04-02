@@ -30,7 +30,3 @@ Template.settings.events({
     $('#buy').toggleClass('btn-primary btn-default').removeClass('disabled');
   }
 });
-
-Template.settings.onRendered(function() {
-  $('#price').fitText(0.75);
-});
