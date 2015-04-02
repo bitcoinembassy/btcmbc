@@ -4,23 +4,27 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>BTCMBC (BTC / CAD)</th>
-          <th>Percentage Fee</th>
-          <th>BitPay (BTC / CAD)</th>
-          <th>BitPay (BTC / USD)</th>
-          <th>BitPay (USD / CAD)</th>
           <th>Time</th>
+          <th>Percentage fee</th>
+          <th>Flat fee</th>
+          <th>BitPay (BTC/CAD)</th>
+          <th>Bitcoin Embassy (BTC/CAD)</th>
+          <th>BitPay (USD/CAD)</th>
+          <th>BitPay (BTC/USD)</th>
+          <th>Bitcoin Embassy (BTC/USD)</th>
         </tr>
       </thead>
       <tbody>
         {{#each prices}}
         <tr>
-          <td>{{formatPrice btcmbcCAD}} CAD</td>
-          <td>{{percentageFee}} %</td>
-          <td>{{formatPrice bitpayCAD}} CAD</td>
-          <td>{{formatPrice bitpayUSD}} USD</td>
-          <td>{{formatUSDCAD bitpayUSD_CAD}} CAD</td>
           <td>{{livestamp createdAt}}</td>
+          <td>{{percentageFee}} %</td>
+          <td>{{flatFee}} $</td>
+          <td>{{formatPrice bitpayCAD}} CAD</td>
+          <td>{{formatPrice btcmbcCAD}} CAD</td>
+          <td>{{formatUSDCAD bitpayUSD_CAD}} CAD</td>
+          <td>{{formatPrice bitpayUSD}} USD</td>
+          <td>{{formatPrice btcmbcUSD}} USD</td>
         </tr>
         {{/each}}
       </tbody>
