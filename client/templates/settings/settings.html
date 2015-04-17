@@ -1,38 +1,44 @@
 <template name="settings">
-  <h1 class="text-center page-header" style="margin-top: 0">Settings</h1>
-  <h2 class="text-center" id="price" style="font-size: 10vw; margin-bottom: 20px;">
-    {{formatPrice price.btcmbcCAD}}
-  </h2>
-  {{#if currentUser}}
-    <div class="row" style="margin-bottom: 20px">
-      <div class="col-lg-3 col-lg-offset-3">
-        <div class="input-group input-group-lg" style="margin-bottom: 20px">
-          <input type="number" class="form-control" step ="0.01" id="percentageFee" value="{{price.percentageFee}}" placeholder="Percentage fee">
-          <span class="input-group-addon">%</span>
+  {{#with price}}
+    <h1 class="text-center page-header" style="margin-top: 0">Buy price</h1>
+    <h2 class="text-center" id="price" style="font-size: 8vw; margin-bottom: 20px;">
+      {{formatPrice buy_price}}
+    </h2>
+    {{#if currentUser}}
+      <div class="row" style="margin-bottom: 20px">
+        <div class="col-lg-3 col-lg-offset-3">
+          <div class="input-group input-group-lg" style="margin-bottom: 20px">
+            <input type="number" class="form-control" step ="0.01" id="percentageFee" value="{{percentage_fee_for_buyers}}" placeholder="Percentage fee">
+            <span class="input-group-addon">%</span>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="input-group input-group-lg">
+            <input type="number" class="form-control" step ="0.0001" id="flatFee" value="{{flat_fee_for_buyers}}" placeholder="Flat fee">
+            <span class="input-group-addon">$</span>
+          </div>
         </div>
       </div>
-      <div class="col-lg-3">
-        <div class="input-group input-group-lg">
-          <input type="number" class="form-control" step ="0.0001" id="flatFee" value="{{currentUser.profile.flatFee}}" placeholder="Flat fee">
-          <span class="input-group-addon">$</span>
+    {{/if}}
+    <h1 class="text-center page-header" style="margin-top: 0">Sell price</h1>
+    <h2 class="text-center" id="price" style="font-size: 8vw; margin-bottom: 20px;">
+      {{formatPrice sell_price}}
+    </h2>
+    {{#if currentUser}}
+      <div class="row" style="margin-bottom: 20px">
+        <div class="col-lg-3 col-lg-offset-3">
+          <div class="input-group input-group-lg" style="margin-bottom: 20px">
+            <input type="number" class="form-control" step ="0.01" id="percentageFee" value="{{percentage_fee_for_sellers}}" placeholder="Percentage fee">
+            <span class="input-group-addon">%</span>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="input-group input-group-lg">
+            <input type="number" class="form-control" step ="0.0001" id="flatFee" value="{{flat_fee_for_sellers}}" placeholder="Flat fee">
+            <span class="input-group-addon">$</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row" style="margin-bottom: 20px">
-      <div class="col-lg-6 col-lg-offset-3">
-        <div class="btn-group btn-group-justified btn-group-lg" role="group">
-          <a href="#" class="btn btn-primary disabled" role="button" id="buy">Buy</a>
-          <a href="#" class="btn btn-default" role="button" id="sell">Sell</a>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6 col-lg-offset-3">
-        <div class="btn-group btn-group-justified btn-group-lg" role="group">
-          <a href="#" class="btn btn-success disabled" role="button" id="open">Open</a>
-          <a href="#" class="btn btn-default" role="button" id="closed">Closed</a>
-        </div>
-      </div>
-    </div>
-  {{/if}}
+    {{/if}}
+  {{/with}}
 </template>

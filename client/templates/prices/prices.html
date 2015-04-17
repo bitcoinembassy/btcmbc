@@ -1,30 +1,55 @@
 <template name="prices">
-  <h1 class="text-center page-header" style="margin-top: 0">Prices</h1>
   {{#if currentUser}}
+    <h1 class="text-center page-header" style="margin-top: 0">For buyers</h1>
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Time</th>
-          <th>Percentage fee</th>
+          <th>BitPay USD price</th>
+          <th>BitPay USD/CAD</th>
+          <th>BitPay CAD price</th>
+          <th>Percentage</th>
+          <th>Buy price</th>
           <th>Flat fee</th>
-          <th>BitPay (BTC/CAD)</th>
-          <th>Bitcoin Embassy (BTC/CAD)</th>
-          <th>BitPay (USD/CAD)</th>
-          <th>BitPay (BTC/USD)</th>
-          <th>Bitcoin Embassy (BTC/USD)</th>
+          <th>Time</th>
         </tr>
       </thead>
       <tbody>
         {{#each prices}}
         <tr>
+          <td>{{formatPrice bitpay_btc_to_usd}} USD</td>
+          <td>{{formatUSDCAD bitpay_usd_to_cad}} CAD</td>
+          <td>{{formatPrice bitpay_btc_to_cad}} CAD</td>
+          <td>{{percentage_fee_for_buyers}} %</td>
+          <td>{{formatPrice buy_price}} CAD</td>
+          <td>{{flat_fee_for_buyers}} $</td>
           <td>{{livestamp createdAt}}</td>
-          <td>{{percentageFee}} %</td>
-          <td>{{flatFee}} $</td>
-          <td>{{formatPrice bitpayCAD}} CAD</td>
-          <td>{{formatPrice btcmbcCAD}} CAD</td>
-          <td>{{formatUSDCAD bitpayUSD_CAD}} CAD</td>
-          <td>{{formatPrice bitpayUSD}} USD</td>
-          <td>{{formatPrice btcmbcUSD}} USD</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <h1 class="text-center page-header" style="margin-top: 0">For sellers</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>BitPay USD price</th>
+          <th>BitPay USD/CAD</th>
+          <th>BitPay CAD price</th>
+          <th>Percentage</th>
+          <th>Sell price</th>
+          <th>Flat fee</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each prices}}
+        <tr>
+          <td>{{formatPrice bitpay_btc_to_usd}} USD</td>
+          <td>{{formatUSDCAD bitpay_usd_to_cad}} CAD</td>
+          <td>{{formatPrice bitpay_btc_to_cad}} CAD</td>
+          <td>{{percentage_fee_for_sellers}} %</td>
+          <td>{{formatPrice sell_price}} CAD</td>
+          <td>{{flat_fee_for_sellers}} $</td>
+          <td>{{livestamp createdAt}}</td>
         </tr>
         {{/each}}
       </tbody>

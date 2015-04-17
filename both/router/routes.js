@@ -2,10 +2,12 @@ Router.configure({
   layoutTemplate: 'appLayout'
 });
 
-Router.route('/', {
-  name: 'ticker'
+Router.route('/', function() {
+  this.redirect('/buy');
 });
 
-Router.route('/settings');
+Router.route('/buy');
+Router.route('/sell');
 
 Router.route('/prices');
+Router.route('/settings');

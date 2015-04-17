@@ -4,7 +4,7 @@ Session.setDefault("btcQuantity", 0);
 
 Meteor.subscribe("messages");
 
-Template.ticker.helpers({
+Template.buy.helpers({
   messages: function() {
     return Messages.find();
   },
