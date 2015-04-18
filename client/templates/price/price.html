@@ -1,0 +1,31 @@
+<template name="price">
+  {{#if currentUser}}
+    <h1 class="text-center page-header" style="margin-top: 0">Bitcoin price</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Coinbase CAD</th>
+          <th>Coinbase USD</th>
+          <th>Coinbase USD/CAD</th>
+          <th>BitPay CAD</th>
+          <th>BitPay USD</th>
+          <th>BitPay USD/CAD</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each prices}}
+        <tr>
+          <td>{{formatPrice coinbase_cad}} CAD</td>
+          <td>{{formatPrice coinbase_usd}} USD</td>
+          <td>{{formatUSDCAD coinbase_usd_to_cad}} CAD</td>
+          <td>{{formatPrice bitpay_cad}} CAD</td>
+          <td>{{formatPrice bitpay_usd}} USD</td>
+          <td>{{formatUSDCAD bitpay_usd_to_cad}} CAD</td>
+          <td>{{livestamp createdAt}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{/if}}
+</template>

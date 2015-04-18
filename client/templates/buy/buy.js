@@ -1,5 +1,4 @@
 Session.setDefault("fiatQuantity", 100);
-Session.setDefault("currency", "CAD");
 Session.setDefault("btcQuantity", 0);
 
 Meteor.subscribe("messages");
@@ -11,35 +10,22 @@ Template.buy.helpers({
   fiatQuantity: function() {
     return accounting.toFixed(Session.get("fiatQuantity"), 2);
   },
-  currency: function() {
-    return Session.get("currency");
-  },
   btcQuantity: function() {
     var btcQuantity = Session.get("btcQuantity");
     if (btcQuantity) {
       return accounting.toFixed(btcQuantity, 4);
     } else {
-      var price = Prices.findOne({}, {sort: {createdAt: -1}});
-      if (price) {
-        if (Meteor.userId()) {
-          var flatFee = Meteor.user().profile.flatFee;
-          btcQuantity = (100 - flatFee) / price.btcmbcCAD;
-        } else {
-          btcQuantity = 100 / price.btcmbcCAD;
-        }
+      var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+      if (current_price) {
+        btcQuantity = (100 - current_price.flat_fee_for_buyers) / current_price.buy_price;
       }
       return accounting.toFixed(btcQuantity, 4);
     }
   },
   price: function() {
     var price = Prices.findOne({}, {sort: {createdAt: -1}});
-    if (Session.equals("currency", "CAD")) {
-      if (price) {
-        return price.btcmbcCAD;
-      }
-    } else {
-      var btcmbcUSD = price.bitpayUSD * (1 + (price.percentageFee / 100));
-      return btcmbcUSD;
+    if (price) {
+      return price.buy_price;
     }
   },
   currentTime: function() {
@@ -47,34 +33,14 @@ Template.buy.helpers({
   }
 });
 
-Template.ticker.events({
+Template.buy.events({
   "input #fiat": function (event) {
-    var price = Prices.findOne({}, {sort: {createdAt: -1}});
-    if (Meteor.userId()) {
-      var flatFee = Meteor.user().profile.flatFee;
-      Session.set("btcQuantity", (event.target.value - flatFee) / price.btcmbcCAD);
-    } else {
-      Session.set("btcQuantity", event.target.value / price.btcmbcCAD);
-    }
-  },
-  "click #currency": function (event) {
-    var price = Prices.findOne({}, {sort: {createdAt: -1}});
-    if (Session.equals("currency", "CAD")) {
-      Session.set("currency", "USD");
-      Session.set("fiatQuantity", Session.get("fiatQuantity") / price.bitpayUSD_CAD);
-    } else {
-      Session.set("currency", "CAD");
-      Session.set("fiatQuantity", Session.get("fiatQuantity") * price.bitpayUSD_CAD);
-    }
+    var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+    Session.set("btcQuantity", (event.target.value - current_price.flat_fee_for_buyers) / current_price.buy_price);
   },
   "input #btc": function (event) {
-    var price = Prices.findOne({}, {sort: {createdAt: -1}});
-    if (Meteor.userId()) {
-      var flatFee = Meteor.user().profile.flatFee;
-      Session.set("fiatQuantity", (event.target.value * price.btcmbcCAD) + flatFee);
-    } else {
-      Session.set("fiatQuantity", event.target.value * price.btcmbcCAD);
-    }
+    var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+    Session.set("fiatQuantity", (event.target.value * current_price.buy_price) + current_price.flat_fee_for_buyers);
   }
 });
 

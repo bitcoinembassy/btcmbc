@@ -1,5 +1,5 @@
 Router.configure({
-  layoutTemplate: 'appLayout'
+  layoutTemplate: 'layout'
 });
 
 Router.route('/', function() {
@@ -8,6 +8,6 @@ Router.route('/', function() {
 
 Router.route('/buy');
 Router.route('/sell');
+Router.route('/price');
 
-Router.route('/prices');
 Router.route('/settings');

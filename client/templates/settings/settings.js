@@ -5,28 +5,18 @@ Template.settings.helpers({
 });
 
 Template.settings.events({
-  "input #percentageFee": function (event) {
-    var percentageFee = parseFloat(event.target.value);
-    if ($.isNumeric(percentageFee)) {
-      var price = Prices.findOne({}, {sort: {createdAt: -1}});
-      Meteor.call("editPercentageFee", percentageFee, price);
+  "input #percentage-above-bitcoin-price": function (event) {
+    var percentage = parseFloat(event.target.value);
+    if ($.isNumeric(percentage)) {
+      var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+      Meteor.call("editPercentageAboveBitcoinPrice", percentage, current_price);
     }
   },
-  "input #flatFee": function (event) {
-    var flatFee = parseFloat(event.target.value);
-    if ($.isNumeric(flatFee)) {
-      Meteor.users.update({_id: Meteor.user()._id}, { $set: {"profile.flatFee": flatFee}});
+  "input #flat-fee-for-buyers": function (event) {
+    var flat_fee = parseFloat(event.target.value);
+    if ($.isNumeric(flat_fee)) {
+      var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+      Meteor.call("editFlatFeeForBuyers", flat_fee, current_price);
     }
-  },
-  "click #buy": function (event) {
-    var latestPrice = Prices.findOne({}, {sort: {createdAt: -1}});
-    $('#price').text('buyprice');
-    $('#buy').toggleClass('btn-default btn-primary').addClass('disabled');
-    $('#sell').toggleClass('btn-primary btn-default').removeClass('disabled');
-  },
-  "click #sell": function (event) {
-    $('#price').text('sellprice');
-    $('#sell').toggleClass('btn-default btn-primary').addClass('disabled');
-    $('#buy').toggleClass('btn-primary btn-default').removeClass('disabled');
   }
 });

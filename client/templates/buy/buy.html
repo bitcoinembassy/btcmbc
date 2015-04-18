@@ -1,7 +1,8 @@
 <template name="buy">
   <h1 class="text-center page-header" style="font-size: 50px; margin-top: 0">
-    Buy bitcoins
+    Prix d'achat / Buy price
   </h1>
+  <h2 class="text-center" id="price" style="font-size: 15vw">{{formatPrice price}}</h2>
   <div class="row">
     <div class="col-lg-6 col-lg-offset-3" style="margin-bottom: 30px">
       {{#each messages}}
@@ -10,20 +11,19 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-3 col-lg-offset-3">
+    <div class="col-lg-4 col-lg-offset-2">
       <div class="input-group input-group-lg" style="margin-bottom: 20px">
         <input type="number" class="form-control" step="0.01" id="fiat" value="{{fiatQuantity}}">
         <span class="input-group-addon">CAD</span>
       </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-4">
       <div class="input-group input-group-lg">
         <input type="number" class="form-control" step ="0.0001" id="btc" value="{{btcQuantity}}">
         <span class="input-group-addon">BTC</span>
       </div>
     </div>
   </div>
-  <h2 class="text-center" id="price" style="font-size: 25vw">{{formatPrice price}}</h2>
   <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
       <div class="navbar-header">

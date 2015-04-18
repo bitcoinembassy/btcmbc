@@ -6,15 +6,15 @@
     </h2>
     {{#if currentUser}}
       <div class="row" style="margin-bottom: 20px">
-        <div class="col-lg-3 col-lg-offset-3">
+        <div class="col-lg-4 col-lg-offset-2">
           <div class="input-group input-group-lg" style="margin-bottom: 20px">
-            <input type="number" class="form-control" step ="0.01" id="percentageFee" value="{{percentage_fee_for_buyers}}" placeholder="Percentage fee">
+            <input type="number" class="form-control" step ="0.01" id="percentage-above-bitcoin-price" value="{{percentage_above_bitcoin_price}}" placeholder="Percentage">
             <span class="input-group-addon">%</span>
           </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
           <div class="input-group input-group-lg">
-            <input type="number" class="form-control" step ="0.0001" id="flatFee" value="{{flat_fee_for_buyers}}" placeholder="Flat fee">
+            <input type="number" class="form-control" step ="0.0001" id="flat-fee-for-buyers" value="{{flat_fee_for_buyers}}" placeholder="Flat fee">
             <span class="input-group-addon">$</span>
           </div>
         </div>
@@ -26,15 +26,15 @@
     </h2>
     {{#if currentUser}}
       <div class="row" style="margin-bottom: 20px">
-        <div class="col-lg-3 col-lg-offset-3">
+        <div class="col-lg-4 col-lg-offset-2">
           <div class="input-group input-group-lg" style="margin-bottom: 20px">
-            <input type="number" class="form-control" step ="0.01" id="percentageFee" value="{{percentage_fee_for_sellers}}" placeholder="Percentage fee">
+            <input type="number" class="form-control" step ="0.01" id="percentage-below-bitcoin-price" value="{{percentage_below_bitcoin_price}}" placeholder="Percentage">
             <span class="input-group-addon">%</span>
           </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
           <div class="input-group input-group-lg">
-            <input type="number" class="form-control" step ="0.0001" id="flatFee" value="{{flat_fee_for_sellers}}" placeholder="Flat fee">
+            <input type="number" class="form-control" step ="0.0001" id="flat-fee-for-sellers" value="{{flat_fee_for_sellers}}" placeholder="Flat fee">
             <span class="input-group-addon">$</span>
           </div>
         </div>

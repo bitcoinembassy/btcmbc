@@ -1,6 +1,6 @@
 Meteor.subscribe("prices");
 
-Template.prices.helpers({
+Template.price.helpers({
   prices: function() {
     return Prices.find({}, {sort: {createdAt: -1}});
   }
