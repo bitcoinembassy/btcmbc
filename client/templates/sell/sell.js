@@ -48,7 +48,9 @@ Template.sell.events({
     $(event.target).select();
   },
   "input #btc": function (event) {
-    if ($.isNumeric(event.target.value)) {
+    var sellAmountBTC = event.target.value;
+    if ($.isNumeric(sellAmountBTC)) {
+      Session.set("sellAmountBTC", sellAmountBTC);
       var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
       var sellAmountCAD = event.target.value * current_price.sell_price - current_price.flat_fee_for_sellers;
       if (sellAmountCAD > current_price.flat_fee_for_sellers) {
@@ -62,11 +64,12 @@ Template.sell.events({
     }
   },
   "input #cad": function (event) {
-    var sellAmountCAD = parseFloat(event.target.value);
+    var sellAmountCAD = event.target.value;
     if ($.isNumeric(sellAmountCAD)) {
+      Session.set("sellAmountCAD", sellAmountCAD);
       var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
       if (sellAmountCAD > current_price.flat_fee_for_sellers) {
-        var sellAmountBTC = (sellAmountCAD + current_price.flat_fee_for_sellers) / current_price.sell_price;
+        var sellAmountBTC = (parseFloat(sellAmountCAD) + current_price.flat_fee_for_sellers) / current_price.sell_price;
         Session.set("sellAmountBTC", accounting.toFixed(sellAmountBTC, 4));
       } else {
         Session.set("sellAmountBTC", 0);
