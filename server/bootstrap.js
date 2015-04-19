@@ -80,10 +80,4 @@ Meteor.startup(function () {
       flat_fee_for_sellers: flat_fee_for_sellers
     });
   }
-
-  if (Messages.find().count() === 0) {
-    Messages.insert({
-      body: 'Frais de 5$ par transaction / 5$ fee per transactions'
-    });
-  }
 });

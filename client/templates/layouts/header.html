@@ -16,7 +16,7 @@
         <ul class="nav navbar-nav">
           <li class="{{isActiveRoute regex='buy'}}"><a href="/buy">Buy bitcoins</a></li>
           <li class="{{isActiveRoute regex='sell'}}"><a href="/sell">Sell bitcoins</a></li>
-          <li><a href="/price">Bitcoin price</a></li>
+          <li class="{{isActiveRoute regex='price'}}"><a href="/price">Bitcoin price</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {{#if currentUser}}

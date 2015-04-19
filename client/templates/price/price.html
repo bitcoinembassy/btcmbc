@@ -1,31 +1,45 @@
 <template name="price">
-  {{#if currentUser}}
-    <h1 class="text-center page-header" style="margin-top: 0">Bitcoin price</h1>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Coinbase CAD</th>
-          <th>Coinbase USD</th>
-          <th>Coinbase USD/CAD</th>
-          <th>BitPay CAD</th>
-          <th>BitPay USD</th>
-          <th>BitPay USD/CAD</th>
-          <th>Time</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each prices}}
-        <tr>
-          <td>{{formatPrice coinbase_cad}} CAD</td>
-          <td>{{formatPrice coinbase_usd}} USD</td>
-          <td>{{formatUSDCAD coinbase_usd_to_cad}} CAD</td>
-          <td>{{formatPrice bitpay_cad}} CAD</td>
-          <td>{{formatPrice bitpay_usd}} USD</td>
-          <td>{{formatUSDCAD bitpay_usd_to_cad}} CAD</td>
-          <td>{{livestamp createdAt}}</td>
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
-  {{/if}}
+  <h1 class="text-center page-header" style="margin-top: 0">Bitcoin price</h1>
+  <div class="row">
+    <div class="col-lg-6">
+      <h2 class="text-right" style="font-size: 6vw">Coinbase:</h2>
+    </div>
+    <div class="col-lg-6">
+      <h2 class="text-center" style="font-size: 6vw"><strong>{{formatPrice coinbase}}</strong></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <h2 class="text-right" style="font-size: 6vw">BitPay:</h2>
+    </div>
+    <div class="col-lg-6">
+      <h2 class="text-center" style="font-size: 6vw"><strong>{{formatPrice bitpay}}</strong></h2>
+    </div>
+  </div>
+  <table class="table table-striped" style="margin-top: 30px">
+    <thead>
+      <tr>
+        <th>Coinbase CAD</th>
+        <th>Coinbase USD</th>
+        <th>Coinbase USD/CAD</th>
+        <th>BitPay CAD</th>
+        <th>BitPay USD</th>
+        <th>BitPay USD/CAD</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each prices}}
+      <tr>
+        <td>{{formatPrice coinbase_cad}} CAD</td>
+        <td>{{formatPrice coinbase_usd}} USD</td>
+        <td>{{formatUSDCAD coinbase_usd_to_cad}} CAD</td>
+        <td>{{formatPrice bitpay_cad}} CAD</td>
+        <td>{{formatPrice bitpay_usd}} USD</td>
+        <td>{{formatUSDCAD bitpay_usd_to_cad}} CAD</td>
+        <td>{{livestamp createdAt}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </template>

@@ -1,31 +1,61 @@
-Session.setDefault("fiatQuantity", 100);
-Session.setDefault("btcQuantity", 0);
-
-Meteor.subscribe("messages");
+Session.setDefault("buyAmountCAD", 100);
 
 Template.buy.helpers({
-  messages: function() {
-    return Messages.find();
-  },
-  fiatQuantity: function() {
-    return accounting.toFixed(Session.get("fiatQuantity"), 2);
-  },
-  btcQuantity: function() {
-    var btcQuantity = Session.get("btcQuantity");
-    if (btcQuantity) {
-      return accounting.toFixed(btcQuantity, 4);
-    } else {
-      var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
-      if (current_price) {
-        btcQuantity = (100 - current_price.flat_fee_for_buyers) / current_price.buy_price;
-      }
-      return accounting.toFixed(btcQuantity, 4);
-    }
-  },
   price: function() {
     var price = Prices.findOne({}, {sort: {createdAt: -1}});
     if (price) {
       return price.buy_price;
+    }
+  },
+  flatFee: function() {
+    var price = Prices.findOne({}, {sort: {createdAt: -1}});
+    if (price) {
+      return price.flat_fee_for_buyers;
+    }
+  },
+  buyAmountCAD: function() {
+    return Session.get("buyAmountCAD");
+  },
+  buyAmountBTC: function() {
+    var buyAmountBTC = Session.get("buyAmountBTC");
+    if (buyAmountBTC) {
+      return buyAmountBTC;
+    } else {
+      var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+      if (current_price) {
+        buyAmountBTC = (Session.get("buyAmountCAD") - current_price.flat_fee_for_buyers) / current_price.buy_price;
+        Session.set("buyAmountBTC", accounting.toFixed(buyAmountBTC, 4));
+      }
+    }
+  },
+  bitcoinValue: function() {
+    var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+    if (current_price) {
+      if (current_price.coinbase_cad > current_price.bitpay_cad) {
+        return "Coinbase";
+      } else {
+        return "BitPay";
+      }
+    }
+  },
+  buyAmountValueCAD: function() {
+    var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+    var bitcoin_price = current_price.coinbase_cad;
+    if (current_price) {
+      if (current_price.coinbase_cad < current_price.bitpay_cad) {
+        bitcoin_price = current_price.bitpay_cad;
+      }
+      return Session.get("buyAmountBTC") * bitcoin_price;
+    }
+  },
+  buyAmountValueUSD: function() {
+    var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+    var bitcoin_price = current_price.coinbase_usd;
+    if (current_price) {
+      if (current_price.coinbase_cad < current_price.bitpay_cad) {
+        bitcoin_price = current_price.bitpay_usd;
+      }
+      return Session.get("buyAmountBTC") * bitcoin_price;
     }
   },
   currentTime: function() {
@@ -34,13 +64,17 @@ Template.buy.helpers({
 });
 
 Template.buy.events({
-  "input #fiat": function (event) {
+  "input #cad": function (event) {
+    Session.set("buyAmountCAD", event.target.value);
     var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
-    Session.set("btcQuantity", (event.target.value - current_price.flat_fee_for_buyers) / current_price.buy_price);
+    var buyAmountBTC = (Session.get("buyAmountCAD") - current_price.flat_fee_for_buyers) / current_price.buy_price;
+    Session.set("buyAmountBTC", accounting.toFixed(buyAmountBTC, 4));
   },
   "input #btc": function (event) {
+    Session.set("buyAmountBTC", event.target.value);
     var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
-    Session.set("fiatQuantity", (event.target.value * current_price.buy_price) + current_price.flat_fee_for_buyers);
+    var buyAmountCAD = Session.get("buyAmountBTC") * current_price.buy_price + current_price.flat_fee_for_buyers;
+    Session.set("buyAmountCAD", accounting.toFixed(buyAmountCAD, 2));
   }
 });
 

@@ -18,6 +18,4 @@ momentjs:moment
 nemo64:bootstrap
 less
 fortawesome:fontawesome
-babrahams:editable-text-wysiwyg-bootstrap-3
-insecure
 zimme:iron-router-active

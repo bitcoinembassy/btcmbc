@@ -1,35 +1,31 @@
 <template name="sell">
-  <h1 class="text-center page-header" style="font-size: 50px; margin-top: 0">
-    Sell bitcoins
+  <h1 class="text-center page-header" style="font-size: 5vw; margin-top: 0">
+    <strong>Sell price</strong> / Prix de vente
   </h1>
+  <h2 class="text-center" style="font-size: 15vw"><strong>{{formatPrice price}}</strong></h2>
+  <h3 class="text-center page-header" style="margin-top: 0">
+    <strong>{{formatPrice flatFee}} fee per transaction</strong> / Frais de {{formatPrice flatFee}} par transaction
+  </h3>
   <div class="row">
-    <div class="col-lg-6 col-lg-offset-3" style="margin-bottom: 30px">
-      {{#each messages}}
-        {{> editableText collection="messages" field="body" wysiwyg=true}}
-      {{/each}}
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-4 col-lg-offset-2">
-      <div class="input-group input-group-lg" style="margin-bottom: 20px">
-        <input type="number" class="form-control" step="0.01" id="fiat" value="{{fiatQuantity}}">
-        <span class="input-group-addon">CAD</span>
-      </div>
-    </div>
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <div class="input-group input-group-lg">
-        <input type="number" class="form-control" step ="0.0001" id="btc" value="{{btcQuantity}}">
+        <input type="number" class="form-control text-right" step ="0.0001" id="btc" value="{{sellAmountBTC}}">
         <span class="input-group-addon">BTC</span>
       </div>
     </div>
+    <div class="col-lg-6">
+      <div class="input-group input-group-lg" style="margin-bottom: 20px">
+        <input type="number" class="form-control text-right" step="0.01" id="cad" value="{{sellAmountCAD}}">
+        <span class="input-group-addon">CAD</span>
+      </div>
+    </div>
   </div>
-  <h2 class="text-center" id="price" style="font-size: 15vw">{{formatPrice price}}</h2>
   <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
       <div class="navbar-header">
         <!--<a class="navbar-brand" href="#">Brand</a>-->
       </div>
-      <p class="navbar-text">{{currentTime}}</p>
+      <p class="navbar-text">Last update: {{currentTime}}</p>
     </div>
   </nav>
 </template>
