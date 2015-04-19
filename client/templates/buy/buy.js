@@ -28,14 +28,10 @@ Template.buy.helpers({
     }
   },
   buyAmountCAD: function() {
-    if (Session.get("buyAmountCAD") > 0) {
-      return Session.get("buyAmountCAD");
-    }
+    return Session.get("buyAmountCAD");
   },
   buyAmountBTC: function() {
-    if (Session.get("buyAmountBTC") > 0) {
-      return Session.get("buyAmountBTC");
-    }
+    return Session.get("buyAmountBTC");
   },
   bitcoinValue: function() {
     var current_price = Prices.findOne({}, {sort: {createdAt: -1}});

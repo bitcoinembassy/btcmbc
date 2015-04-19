@@ -23,20 +23,16 @@ Template.sell.helpers({
     if (isNaN(Session.get("sellAmountCAD"))) {
       var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
       if (current_price) {
-        return accounting.toFixed(0.5  * current_price.buy_price - current_price.flat_fee_for_buyers, 2);
+        return accounting.toFixed(0.5  * current_price.sell_price - current_price.flat_fee_for_sellers, 2);
       }
     }
   },
 
   sellAmountBTC: function() {
-    if (Session.get("sellAmountBTC") > 0) {
-      return Session.get("sellAmountBTC");
-    }
+    return Session.get("sellAmountBTC");
   },
   sellAmountCAD: function() {
-    if (Session.get("sellAmountCAD") > 0) {
-      return Session.get("sellAmountCAD");
-    }
+    return Session.get("sellAmountCAD");
   },
   currentTime: function() {
     return moment(Session.get('time') || new Date()).format("dddd, MMMM Do, h:mm A");
