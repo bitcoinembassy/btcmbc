@@ -5,6 +5,9 @@ Template.settings.helpers({
 });
 
 Template.settings.events({
+  "click input": function (event) {
+    $(event.target).select();
+  },
   "keypress #percentage-above-bitcoin-price": function (event) {
     var percentage = parseFloat(event.target.value);
     if ($.isNumeric(percentage) && event.which === 13) {

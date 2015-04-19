@@ -34,6 +34,9 @@ Template.sell.helpers({
 });
 
 Template.sell.events({
+  "click input": function (event) {
+    $(event.target).select();
+  },
   "input #btc": function (event) {
     var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
     var sellAmountCAD = parseFloat(event.target.value) * current_price.sell_price - current_price.flat_fee_for_sellers;

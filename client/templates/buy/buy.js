@@ -64,6 +64,9 @@ Template.buy.helpers({
 });
 
 Template.buy.events({
+  "click input": function (event) {
+    $(event.target).select();
+  },
   "input #cad": function (event) {
     Session.set("buyAmountCAD", event.target.value);
     var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
