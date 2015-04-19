@@ -1,4 +1,5 @@
-Session.setDefault("buyAmountCAD", 100);
+Session.setDefault("buyAmountCAD", NaN);
+Session.setDefault("buyAmountBTC", NaN);
 
 Template.buy.helpers({
   price: function() {
@@ -13,19 +14,27 @@ Template.buy.helpers({
       return price.flat_fee_for_buyers;
     }
   },
-  buyAmountCAD: function() {
-    return Session.get("buyAmountCAD");
+  placeholderAmountCAD: function() {
+    if (isNaN(Session.get("buyAmountCAD"))) {
+      return 100;
+    }
   },
-  buyAmountBTC: function() {
-    var buyAmountBTC = Session.get("buyAmountBTC");
-    if (buyAmountBTC) {
-      return buyAmountBTC;
-    } else {
+  placeholderAmountBTC: function() {
+    if (isNaN(Session.get("buyAmountBTC"))) {
       var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
       if (current_price) {
-        buyAmountBTC = (Session.get("buyAmountCAD") - current_price.flat_fee_for_buyers) / current_price.buy_price;
-        Session.set("buyAmountBTC", accounting.toFixed(buyAmountBTC, 4));
+        return accounting.toFixed((100 - current_price.flat_fee_for_buyers) / current_price.buy_price, 4);
       }
+    }
+  },
+  buyAmountCAD: function() {
+    if (Session.get("buyAmountCAD") > 0) {
+      return Session.get("buyAmountCAD");
+    }
+  },
+  buyAmountBTC: function() {
+    if (Session.get("buyAmountBTC") > 0) {
+      return Session.get("buyAmountBTC");
     }
   },
   bitcoinValue: function() {
@@ -68,16 +77,36 @@ Template.buy.events({
     $(event.target).select();
   },
   "input #cad": function (event) {
-    Session.set("buyAmountCAD", event.target.value);
-    var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
-    var buyAmountBTC = (Session.get("buyAmountCAD") - current_price.flat_fee_for_buyers) / current_price.buy_price;
-    Session.set("buyAmountBTC", accounting.toFixed(buyAmountBTC, 4));
+    var buyAmountCAD = event.target.value;
+    if ($.isNumeric(buyAmountCAD)) {
+      Session.set("buyAmountCAD", buyAmountCAD);
+      var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+      if (Session.get("buyAmountCAD") > current_price.flat_fee_for_buyers) {
+        var buyAmountBTC = (Session.get("buyAmountCAD") - current_price.flat_fee_for_buyers) / current_price.buy_price;
+        Session.set("buyAmountBTC", accounting.toFixed(buyAmountBTC, 4));
+      } else {
+        Session.set("buyAmountBTC", 0);
+      }
+    } else {
+      Session.set("buyAmountCAD", NaN);
+      Session.set("buyAmountBTC", NaN);
+    }
   },
   "input #btc": function (event) {
-    Session.set("buyAmountBTC", event.target.value);
-    var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
-    var buyAmountCAD = Session.get("buyAmountBTC") * current_price.buy_price + current_price.flat_fee_for_buyers;
-    Session.set("buyAmountCAD", accounting.toFixed(buyAmountCAD, 2));
+    var buyAmountBTC = event.target.value;
+    if ($.isNumeric(buyAmountBTC)) {
+      Session.set("buyAmountBTC", buyAmountBTC);
+      var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+      var buyAmountCAD = Session.get("buyAmountBTC") * current_price.buy_price + current_price.flat_fee_for_buyers;
+      if (buyAmountCAD > current_price.flat_fee_for_buyers) {
+        Session.set("buyAmountCAD", accounting.toFixed(buyAmountCAD, 2));
+      } else {
+        Session.set("buyAmountCAD", 0);
+      }
+    } else {
+      Session.set("buyAmountCAD", NaN);
+      Session.set("buyAmountBTC", NaN);
+    }
   }
 });
 

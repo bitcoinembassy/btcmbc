@@ -2,31 +2,32 @@
   <h1 class="text-center" style="font-size: 5vw; margin-top: 0">
     <strong>Buy price</strong> / Prix d'achat
   </h1>
-  <hr>
   <h2 class="text-center" style="font-size: 15vw"><strong>{{formatPrice price}}</strong></h2>
-  <h3 class="text-center page-header" style="margin-top: 0">
+  <h2 class="text-center" style="margin-bottom: 40px">
     <strong>{{formatPrice flatFee}} fee per transaction</strong> / Frais de {{formatPrice flatFee}} par transaction
-  </h3>
+  </h2>
   <div class="row">
     <div class="col-sm-6">
       <div class="input-group input-group-lg" style="margin-bottom: 20px">
-        <input type="number" class="form-control text-right" step="0.01" id="cad" value="{{buyAmountCAD}}">
+        <input type="number" class="form-control text-right" step="0.01" id="cad" value="{{buyAmountCAD}}" placeholder="{{placeholderAmountCAD}}">
         <span class="input-group-addon">CAD</span>
       </div>
     </div>
     <div class="col-sm-6">
       <div class="input-group input-group-lg">
-        <input type="number" class="form-control text-right" step ="0.0001" id="btc" value="{{buyAmountBTC}}">
+        <input type="number" class="form-control text-right" step ="0.0001" id="btc" value="{{buyAmountBTC}}" placeholder="{{placeholderAmountBTC}}">
         <span class="input-group-addon">BTC</span>
       </div>
     </div>
   </div>
-  <h2 class="text-center" style="margin-top: 20px">
-    <strong>{{buyAmountBTC}}</strong> BTC
-    = <strong>{{formatAmount buyAmountValueCAD}}</strong> CAD*
-    = <strong>{{formatAmount buyAmountValueUSD}}</strong> USD*
-  </h2>
-  <h2 class="text-center"><small>*according to {{bitcoinValue}}</small></h2>
+  {{#if buyAmountBTC}}
+    <h2 class="text-center" style="margin-top: 20px">
+      <strong>{{formatAmountBTC buyAmountBTC}}</strong> BTC
+      = <strong>{{formatAmountFiat buyAmountValueCAD}}</strong> CAD*
+      = <strong>{{formatAmountFiat buyAmountValueUSD}}</strong> USD*
+    </h2>
+    <h2 class="text-center"><small>*according to {{bitcoinValue}}</small></h2>
+  {{/if}}
   <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
       <div class="navbar-header">

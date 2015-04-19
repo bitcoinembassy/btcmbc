@@ -18,14 +18,18 @@ Template.price.helpers({
   }
 });
 
+Template.registerHelper('formatAmountBTC', function(price) {
+  return accounting.toFixed(price, 4);
+});
+
+Template.registerHelper('formatAmountFiat', function(price) {
+  return accounting.toFixed(price, 2);
+});
+
 Template.registerHelper('formatPrice', function(price) {
   return accounting.formatMoney(price);
 });
 
-Template.registerHelper('formatAmount', function(price) {
-  return accounting.toFixed(price, 2);
-});
-
-Template.registerHelper('formatUSDCAD', function(price) {
-  return accounting.formatMoney(price, "$", 4);
+Template.registerHelper('formatExchangeRate', function(price) {
+  return accounting.toFixed(price, 4);
 });
