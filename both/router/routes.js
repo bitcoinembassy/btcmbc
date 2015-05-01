@@ -1,5 +1,5 @@
 Router.configure({
-  layoutTemplate: 'layout'
+  layoutTemplate: 'ApplicationLayout'
 });
 
 Router.route('/', function() {
@@ -11,3 +11,8 @@ Router.route('/sell');
 Router.route('/price');
 
 Router.route('/settings');
+
+Router.route('/embed', function () {
+  this.layout('WidgetLayout');
+  this.render('embed');
+});
