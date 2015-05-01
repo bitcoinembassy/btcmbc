@@ -1,0 +1,34 @@
+<template name="embed">
+  <h1 class="text-center" style="font-size: 8vw; margin-top: 0">
+    <strong>Buy price</strong>
+  </h1>
+  <h2 class="text-center" style="font-size: 15vw"><strong>{{formatPrice price}}</strong></h2>
+  <p class="lead text-center">
+    <strong>{{formatPrice flatFee}} fee per transaction</strong>
+  </p>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="input-group input-group-lg" style="margin-bottom: 20px">
+          <input type="number" class="form-control text-right" id="cad" value="{{buyAmountCAD}}" placeholder="{{placeholderAmountCAD}}">
+          <span class="input-group-addon">CAD</span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="input-group input-group-lg">
+          <input type="number" class="form-control text-right" step ="0.0001" id="btc" value="{{buyAmountBTC}}" placeholder="{{placeholderAmountBTC}}">
+          <span class="input-group-addon">BTC</span>
+        </div>
+      </div>
+    </div>
+    {{#if buyAmountBTC}}
+      <p class="lead text-center" style="margin-top: 20px">
+        <strong>{{formatAmountBTC buyAmountBTC}}</strong> BTC
+        = <strong>{{formatAmountFiat buyAmountValueCAD}}</strong> CAD*
+      </p>
+      <p class="lead text-center" style="margin-top: 20px">
+        <strong>{{formatAmountBTC buyAmountBTC}}</strong> BTC
+        = <strong>{{formatAmountFiat buyAmountValueUSD}}</strong> USD*
+      </p>
+      <p class="lead text-center text-muted" style="margin-bottom: 0">*according to {{bitcoinValue}}</p>
+    {{/if}}
+</template>
