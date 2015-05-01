@@ -21,12 +21,12 @@
     </div>
   </div>
   {{#if buyAmountBTC}}
-    <h2 class="text-center" style="margin-top: 20px">
+    <p class="lead text-center" style="margin-top: 20px">
       <strong>{{formatAmountBTC buyAmountBTC}}</strong> BTC
       = <strong>{{formatAmountFiat buyAmountValueCAD}}</strong> CAD*
       = <strong>{{formatAmountFiat buyAmountValueUSD}}</strong> USD*
-    </h2>
-    <h2 class="text-center"><small>*according to {{bitcoinValue}}</small></h2>
+    </p>
+    <p class="lead text-center text-muted">*according to {{bitcoinValue}}</p>
   {{/if}}
   <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
