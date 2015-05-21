@@ -27,7 +27,6 @@ Template.sell.helpers({
       }
     }
   },
-
   sellAmountBTC: function() {
     return Session.get("sellAmountBTC");
   },

@@ -1,25 +1,28 @@
 Session.setDefault("buyAmountCAD", NaN);
 Session.setDefault("buyAmountBTC", NaN);
 
+Session.setDefault("sellAmountBTC", NaN);
+Session.setDefault("sellAmountCAD", NaN);
+
 Template.embed.helpers({
-  price: function() {
+  buyPrice: function() {
     var price = Prices.findOne({}, {sort: {createdAt: -1}});
     if (price) {
       return price.buy_price;
     }
   },
-  flatFee: function() {
+  flatFeeForBuying: function() {
     var price = Prices.findOne({}, {sort: {createdAt: -1}});
     if (price) {
       return price.flat_fee_for_buyers;
     }
   },
-  placeholderAmountCAD: function() {
+  placeholderBuyAmountCAD: function() {
     if (isNaN(Session.get("buyAmountCAD"))) {
       return 100;
     }
   },
-  placeholderAmountBTC: function() {
+  placeholderBuyAmountBTC: function() {
     if (isNaN(Session.get("buyAmountBTC"))) {
       var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
       if (current_price) {
@@ -53,15 +56,36 @@ Template.embed.helpers({
       return Session.get("buyAmountBTC") * bitcoin_price;
     }
   },
-  buyAmountValueUSD: function() {
-    var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
-    var bitcoin_price = current_price.coinbase_usd;
-    if (current_price) {
-      if (current_price.coinbase_cad < current_price.bitpay_cad) {
-        bitcoin_price = current_price.bitpay_usd;
-      }
-      return Session.get("buyAmountBTC") * bitcoin_price;
+  sellPrice: function() {
+    var price = Prices.findOne({}, {sort: {createdAt: -1}});
+    if (price) {
+      return price.sell_price;
     }
+  },
+  flatFeeForSelling: function() {
+    var price = Prices.findOne({}, {sort: {createdAt: -1}});
+    if (price) {
+      return price.flat_fee_for_sellers;
+    }
+  },
+  placeholderSellAmountBTC: function() {
+    if (isNaN(Session.get("sellAmountBTC"))) {
+      return 0.5;
+    }
+  },
+  placeholderSellAmountCAD: function() {
+    if (isNaN(Session.get("sellAmountCAD"))) {
+      var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+      if (current_price) {
+        return accounting.toFixed(0.5  * current_price.sell_price - current_price.flat_fee_for_sellers, 2);
+      }
+    }
+  },
+  sellAmountBTC: function() {
+    return Session.get("sellAmountBTC");
+  },
+  sellAmountCAD: function() {
+    return Session.get("sellAmountCAD");
   }
 });
 
@@ -69,7 +93,7 @@ Template.embed.events({
   "click input": function (event) {
     $(event.target).select();
   },
-  "input #cad": function (event) {
+  "input #buyAmountCAD": function (event) {
     var buyAmountCAD = event.target.value;
     if ($.isNumeric(buyAmountCAD)) {
       Session.set("buyAmountCAD", buyAmountCAD);
@@ -85,7 +109,7 @@ Template.embed.events({
       Session.set("buyAmountBTC", NaN);
     }
   },
-  "input #btc": function (event) {
+  "input #buyAmountBTC": function (event) {
     var buyAmountBTC = event.target.value;
     if ($.isNumeric(buyAmountBTC)) {
       Session.set("buyAmountBTC", buyAmountBTC);
@@ -99,6 +123,38 @@ Template.embed.events({
     } else {
       Session.set("buyAmountCAD", NaN);
       Session.set("buyAmountBTC", NaN);
+    }
+  },
+  "input #sellAmountBTC": function (event) {
+    var sellAmountBTC = event.target.value;
+    if ($.isNumeric(sellAmountBTC)) {
+      Session.set("sellAmountBTC", sellAmountBTC);
+      var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+      var sellAmountCAD = event.target.value * current_price.sell_price - current_price.flat_fee_for_sellers;
+      if (sellAmountCAD > current_price.flat_fee_for_sellers) {
+        Session.set("sellAmountCAD", accounting.toFixed(sellAmountCAD, 2));
+      } else {
+        Session.set("sellAmountCAD", 0);
+      }
+    } else {
+      Session.set("sellAmountCAD", NaN);
+      Session.set("sellAmountBTC", NaN);
+    }
+  },
+  "input #sellAmountCAD": function (event) {
+    var sellAmountCAD = event.target.value;
+    if ($.isNumeric(sellAmountCAD)) {
+      Session.set("sellAmountCAD", sellAmountCAD);
+      var current_price = Prices.findOne({}, {sort: {createdAt: -1}});
+      if (sellAmountCAD > current_price.flat_fee_for_sellers) {
+        var sellAmountBTC = (parseFloat(sellAmountCAD) + current_price.flat_fee_for_sellers) / current_price.sell_price;
+        Session.set("sellAmountBTC", accounting.toFixed(sellAmountBTC, 4));
+      } else {
+        Session.set("sellAmountBTC", 0);
+      }
+    } else {
+      Session.set("sellAmountCAD", NaN);
+      Session.set("sellAmountBTC", NaN);
     }
   }
 });
