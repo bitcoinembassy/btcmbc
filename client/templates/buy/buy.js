@@ -62,9 +62,6 @@ Template.buy.helpers({
       }
       return Session.get("buyAmountBTC") * bitcoin_price;
     }
-  },
-  currentTime: function() {
-    return moment(Session.get('time') || new Date()).format("dddd, MMMM Do, h:mm A");
   }
 });
 
