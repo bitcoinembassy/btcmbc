@@ -1,19 +1,19 @@
 <template name="embed">
-  <h2 class="text-center" style="margin-top: 0">
+  <h3 class="text-center" style="margin-top: 0">
     <strong>Buy price</strong>
-  </h2>
-  <h1 class="text-center"><strong>{{formatPrice buyPrice}}</strong></h1>
+  </h3>
+  <h2 class="text-center"><strong>{{formatPrice buyPrice}}</strong></h2>
   <p class="lead text-center">
     {{formatPrice flatFeeForBuying}} fee per transaction
   </p>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-xs-6">
       <div class="input-group" style="margin-bottom: 20px">
         <input type="number" class="form-control text-right" id="buyAmountCAD" value="{{buyAmountCAD}}" placeholder="{{placeholderBuyAmountCAD}}">
         <span class="input-group-addon">CAD</span>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-xs-6">
       <div class="input-group">
         <input type="number" class="form-control text-right" step ="0.0001" id="buyAmountBTC" value="{{buyAmountBTC}}" placeholder="{{placeholderBuyAmountBTC}}">
         <span class="input-group-addon">BTC</span>
@@ -21,27 +21,27 @@
     </div>
   </div>
   {{#if buyAmountBTC}}
-    <p class="lead text-center" style="margin-top: 20px; margin-bottom: 0">
+    <p class="lead text-center" style="font-size: 18px; margin-bottom: 0">
       <strong>{{formatAmountBTC buyAmountBTC}}</strong> BTC =
       <strong>{{formatAmountFiat buyAmountValueCAD}}</strong> CAD*
     </p>
     <p class="text-center text-muted" style="margin-top: 0; margin-bottom: 20px">*according to {{bitcoinValue}}</p>
   {{/if}}
-  <h2 class="text-center" style="margin-top: 0">
+  <h3 class="text-center" style="margin-top: 0">
     <strong>Sell price</strong>
-  </h2>
-  <h1 class="text-center"><strong>{{formatPrice sellPrice}}</strong></h1>
+  </h3>
+  <h2 class="text-center"><strong>{{formatPrice sellPrice}}</strong></h2>
   <p class="lead text-center">
     {{formatPrice flatFeeForSelling}} fee per transaction
   </p>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-xs-6">
       <div class="input-group" style="margin-bottom: 20px">
         <input type="number" class="form-control text-right" step ="0.0001" id="sellAmountBTC" value="{{sellAmountBTC}}" placeholder="{{placeholderSellAmountBTC}}">
         <span class="input-group-addon">BTC</span>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-xs-6">
       <div class="input-group">
         <input type="number" class="form-control text-right" step="0.01" id="sellAmountCAD" value="{{sellAmountCAD}}" placeholder="{{placeholderSellAmountCAD}}">
         <span class="input-group-addon">CAD</span>
