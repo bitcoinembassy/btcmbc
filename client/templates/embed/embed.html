@@ -2,18 +2,20 @@
   <h3 class="text-center" style="margin-top: 0">
     <strong>Buy price</strong>
   </h3>
-  <h2 class="text-center"><strong>{{formatPrice buyPrice}}</strong></h2>
-  <p class="lead text-center">
+  <h2 class="text-center" style="margin-top: 0">
+    <strong>{{formatPrice buyPrice}}</strong>
+  </h2>
+  <p class="lead text-center" style="margin-bottom: 0">
     {{formatPrice flatFeeForBuying}} fee per transaction
   </p>
   <div class="row">
-    <div class="col-xs-6">
+    <div class="col-sm-6">
       <div class="input-group" style="margin-bottom: 20px">
         <input type="number" class="form-control text-right" id="buyAmountCAD" value="{{buyAmountCAD}}" placeholder="{{placeholderBuyAmountCAD}}">
         <span class="input-group-addon">CAD</span>
       </div>
     </div>
-    <div class="col-xs-6">
+    <div class="col-sm-6">
       <div class="input-group">
         <input type="number" class="form-control text-right" step ="0.0001" id="buyAmountBTC" value="{{buyAmountBTC}}" placeholder="{{placeholderBuyAmountBTC}}">
         <span class="input-group-addon">BTC</span>
@@ -30,18 +32,20 @@
   <h3 class="text-center" style="margin-top: 0">
     <strong>Sell price</strong>
   </h3>
-  <h2 class="text-center"><strong>{{formatPrice sellPrice}}</strong></h2>
-  <p class="lead text-center">
+  <h2 class="text-center" style="margin-top: 0">
+    <strong>{{formatPrice sellPrice}}</strong>
+  </h2>
+  <p class="lead text-center" style="margin-bottom: 0">
     {{formatPrice flatFeeForSelling}} fee per transaction
   </p>
   <div class="row">
-    <div class="col-xs-6">
+    <div class="col-sm-6">
       <div class="input-group" style="margin-bottom: 20px">
         <input type="number" class="form-control text-right" step ="0.0001" id="sellAmountBTC" value="{{sellAmountBTC}}" placeholder="{{placeholderSellAmountBTC}}">
         <span class="input-group-addon">BTC</span>
       </div>
     </div>
-    <div class="col-xs-6">
+    <div class="col-sm-6">
       <div class="input-group">
         <input type="number" class="form-control text-right" step="0.01" id="sellAmountCAD" value="{{sellAmountCAD}}" placeholder="{{placeholderSellAmountCAD}}">
         <span class="input-group-addon">CAD</span>
